@@ -1,0 +1,27 @@
+steps:
+
+  #  Install npm
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+    id: 'npm-install'
+    dir: './'
+    waitFor: ['-']  # The '-' indicates that this step begins immediately.
+
+  # Run npm test
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['run', 'test']
+    dir: './'
+    id: 'npm-test'
+    waitFor: ['npm-install']  # This step will wait until npm-install step complete.
+
+  # Deploy the function
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - functions
+      - deploy
+      - --runtime=nodejs8
+      - --trigger-http
+      - --source=./  # Function source files
+      - --entry-point=ci_cd_sum # Function entry point
+      - ci_cd_sum # Function name
+    waitFor: ['npm-test'] # This step will wait until npm-test step complete.
