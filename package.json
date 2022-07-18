@@ -1,0 +1,16 @@
+{
+  "name": "ci-cd-cf",
+  "version": "1.2.0",
+  "description": "A small guide for CI\\CD in GCP CloudFunctions",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "keywords": [],
+  "author": "Soliman",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^6.2.2",
+    "sinon": "^7.5.0"
+  }
+}
